@@ -14,44 +14,47 @@ public class TestServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// ¿©±â ÀÛ¼ºµÈ ³»¿ë´ë·Î ÀÀ´äÀ» ÇÏ°Ô µÊ
-		System.out.println("¼­ºí¸´ ¿äÃ» ¹ŞÀ½"); // ¼­¹ö ÄÜ¼Ö¿¡ Ãâ·Â.
-		
-		response.setCharacterEncoding("utf-8"); // utf-8 ÀÎÄÚµù ¼¼ÆÃ
-		response.setContentType("text/html; charset=utf-8"); // utf-8 html¹®¼­·Î ÀÀ´äÇÏ°Ú´Ù.
-		
-		// °í»ö ºê¶ó¿ìÀú¿¡ Ãâ·Â -> ¹®¼­ »ı¼º
+		// ì—¬ê¸° ì‘ì„±ëœ ë‚´ìš©ëŒ€ë¡œ ì‘ë‹µì„ í•˜ê²Œ ë¨
+		System.out.println("ì„œë¸”ë¦¿ ìš”ì²­ ë°›ìŒ"); // ì„œë²„ ì½˜ì†”ì— ì¶œë ¥.
+
+		response.setCharacterEncoding("utf-8"); // utf-8 ì¸ì½”ë”© ì„¸íŒ…
+		response.setContentType("text/html; charset=utf-8"); // utf-8 htmlë¬¸ì„œë¡œ ì‘ë‹µí•˜ê² ë‹¤.
+
+		// ê³ ìƒ‰ ë¸Œë¼ìš°ì €ì— ì¶œë ¥ -> ë¬¸ì„œ ìƒì„±
 		PrintWriter out = response.getWriter();
 		out.println("Hello~ this is Servlet~");
-		
-		//html ±×·Á¾ßµÈ´Ù.
-		
-		
-		// Å¬¶óÀÌ¾ğÆ®µµ ÃÖ¼ÒÇÑÀÇ µ¥ÀÌÅÍ´Â º¸³»Áà¾ßÇÑ´Ù.
-		
-		// Å¬¶óÀÌ¾ğÆ®¿¡¼­ ¼­¹ö·Î µ¥ÀÌÅÍ ÁÖ°í ¹Ş´Â ¹ı.
+
+		//html ê·¸ë ¤ì•¼ëœë‹¤.
+
+
+		// í´ë¼ì´ì–¸íŠ¸ë„ ìµœì†Œí•œì˜ ë°ì´í„°ëŠ” ë³´ë‚´ì¤˜ì•¼í•œë‹¤.
+
+		// í´ë¼ì´ì–¸íŠ¸ì—ì„œ ì„œë²„ë¡œ ë°ì´í„° ì£¼ê³  ë°›ëŠ” ë²•.
 		//http://localhost:9000/JSP-example/TestServlet?id=hong
 		//http://localhost:9000/JSP-example/TestServlet?id=hong&pw=asdf
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
-		
-		
+
+
 		//String id = "hong";
 		//String id = "hong2";
-		
+
 		String name = "";
-		
-		out.println("<h1>¸ŞÀÎ ÆäÀÌÁö!!</h1>");
-		
+
+		out.println("<h1>ë©”ì¸ í˜ì´ì§€!!</h1>");
+
 		if(id.equals("hong")) {
-			name = "È«±æµ¿";
+			name = "í™ê¸¸ë™";
 		} else if(id.equals("hong2")) {
-			name = "È«±æ¼ø";
+			name = "í™ê¸¸ìˆœ";
 		}
+
+		out.println(name + "ë‹˜!! ë°˜ê°‘ìŠµë‹ˆë‹¤.");
 		
-		out.println(name + "´Ô!! ¹İ°©½À´Ï´Ù.");
 		
 		
+		
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
