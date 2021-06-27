@@ -47,24 +47,24 @@ public class Dao {
 		return articleList;
 	}
 	
-	public void insertAddr(Article addr) throws ClassNotFoundException, SQLException {
-		Connection conn = getConnection();
-		Statement stmt = conn.createStatement();
-		//String sql = "INSERT INTO addr SET `name`='" + addr.getName() + "', `addr`='" + addr.getAddr() + "', `phone`='" + addr.getPhone() + "'";
-		//stmt.executeUpdate(sql);
-	}
-
-	public void updateAddr(Article addr) throws ClassNotFoundException, SQLException {
-		Connection conn = getConnection();
-		Statement stmt = conn.createStatement();
-		//String sql = "UPDATE addr SET `name`='"+ addr.getName() + "', `addr`='" + addr.getAddr() + "', `phone`='" + addr.getPhone() + "' WHERE id = " + addr.getId();
-		//stmt.executeUpdate(sql);
-	}
 	
-	public void deleteAddr(int id) throws ClassNotFoundException, SQLException {
+	public void insertArticle(String title, String body) throws ClassNotFoundException, SQLException {
 		Connection conn = getConnection();
 		Statement stmt = conn.createStatement();
-		String sql = "DELETE FROM addr WHERE id = " + id;
+		
+		String sql = "INSERT INTO article\r\n"
+				+ "SET regDate = NOW(),\r\n"
+				+ "title = '" + title + "',\r\n"
+				+ "`body` = '" + body + "',\r\n"
+				+ "boardId = 1,\r\n"
+				+ "memberId = 1,\r\n"
+				+ "writer = '',\r\n"
+				+ "passwd = '',\r\n"
+				+ "hit = 0";
+		
 		stmt.executeUpdate(sql);
 	}
+	
+	
+	
 }
