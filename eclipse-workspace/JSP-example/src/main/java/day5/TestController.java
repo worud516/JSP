@@ -79,7 +79,7 @@ public class TestController extends HttpServlet {
 					session.setAttribute("loginedUser", target);
 					
 					// 리다이렉트
-					response.sendRedirect("http://localhost:9000/JSP/article/list");
+					response.sendRedirect("http://localhost:9000/JSP-example/article/list");
 					
 					
 				}

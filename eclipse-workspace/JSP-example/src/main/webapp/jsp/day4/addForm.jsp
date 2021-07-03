@@ -24,6 +24,6 @@
 		<input type="submit"/>
 	</div>
 </form>
-<a href="http://127.0.0.1:9000/JSP/jsp/day4/list.jsp">목록으로</a>
+<a href="http://127.0.0.1:9000/JSP-example/jsp/day4/list.jsp">목록으로</a>
 </body>
 </html>
