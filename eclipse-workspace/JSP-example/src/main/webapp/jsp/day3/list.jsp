@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-<%@ page import="com.ljk.example.Dao" %>
+<%@ page import="day2.ArticleDao" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.ljk.example.Article" %>
+<%@ page import="day2.Article" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html>
@@ -12,22 +12,19 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%
+	ArticleDao dao = new ArticleDao();
+	ArrayList<Article> list = dao.getArticleList();
+	
+	request.setAttribute("list", list);
+	
+%>
+<c:forEach items="${list}" var="article">
+	번호 : ${article.id} <br>
+	제목 : ${article.title} <br>
+	내용 : ${article.body} <br>
+	<hr>
+</c:forEach>
 
-	<%
-		Dao dao = new Dao();
-		ArrayList<Article> list = dao.getArticleList();
-		
-		
-		for(int i = 0; i < list.size(); i++) { %> 
-			번호 : <%= list.get(i).getId() %>  <br>
-			제목 : <%= list.get(i).getTitle() %> <br>
-			내용 : <%= list.get(i).getRegDate() %> <br>
-			작성일 : <%= list.get(i).getBody() %> <br>
-			작성자 : <%= list.get(i).getName() %> <br>
-			<hr>
-		<% } %>
-	
-	
-	
 </body>
 </html>

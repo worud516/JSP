@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-<%@ page import="com.ljk.example.Dao" %>
+<%@ page import="day2.ArticleDao" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,31 +11,19 @@
 
 <h1>게시물 등록</h1>
 
-
 <form action="http://127.0.0.1:9000/JSP-example/TestController/add">
 	<div>
-		
 		<div>
-			제목
-			<br>
+			제목<br>
 			<input type="text" placeholder="제목을 입력해주세요." name="title">
 		</div>
-		<br>
 		<div>
-			내용
-			<br>
+			내용<br>
 			<textarea name="body"></textarea>
 		</div>
-		
-		<input type="submit">
-		
+		<input type="submit"/>
 	</div>
 </form>
-
-
-
-
-<a href="http://127.0.0.1:9000/JSP-example/jsp/day4/list.jsp">목록으로</a>
-
+<a href="http://127.0.0.1:9000/JSP/jsp/day4/list.jsp">목록으로</a>
 </body>
 </html>
