@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h1>로그인</h1>
-	<form action="/JSP-example/article5/doLogin">
+	<form action="/JSP-example/article6/doLogin">
 		<div>
 			아이디 : <input type="text" name="loginId" />
 		</div>

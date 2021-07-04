@@ -1,4 +1,4 @@
-package day5;
+package day6;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -12,12 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import day1.Member;
-import day1.MemberDao;
-import day2.Article;
-import day2.ArticleDao;
+import day6.Member;
+import day6.MemberDao;
+import day6.Article;
+import day6.ArticleDao;
 
-@WebServlet("/article5/*")
+@WebServlet("/article6/*")
 public class TestController extends HttpServlet {
 	
 	MemberDao mdao = new MemberDao();
@@ -65,6 +65,17 @@ public class TestController extends HttpServlet {
 			else if(action.equals("login")) {
 				forwarding(request, response, "login");
 			}
+			else if(action.equals("detail")) {
+				
+				// DB 접속
+				
+				String strId = request.getParameter("articleId");
+				int id = Integer.parseInt(strId);
+				Article article = adao.getArticleById(id);
+				
+				request.setAttribute("article", article);
+				forwarding(request, response, "detail");
+			}
 			else if(action.equals("doLogin")) {
 				
 				String loginId = request.getParameter("loginId");
@@ -78,8 +89,18 @@ public class TestController extends HttpServlet {
 					HttpSession session = request.getSession();
 					session.setAttribute("loginedUser", target);
 					
+					
+					
+					request.setAttribute("loginUser",target);
+					
 					// 리다이렉트
-					response.sendRedirect("http://localhost:9000/JSP-example/article5/list");
+										
+					//ArrayList<Article> articles = adao.getArticleList();
+					//request.setAttribute("articles", articles);
+					
+					response.sendRedirect("http://localhost:9000/JSP-example/article6/list");
+					
+					//forwarding(request, response, "list");
 					
 					
 				}
@@ -92,6 +113,16 @@ public class TestController extends HttpServlet {
 				
 				
 			}
+			else if(action.equals("doLoginout")) {
+				// 세션에 저장되어 있는 로그인 유저 정보를 삭제.
+				HttpSession session = request.getSession();
+				session.invalidate();	// 세션 저장소 파기
+				
+				// 리스트 -> 리다이렉트
+				response.sendRedirect("/JSP-example/article6/list");
+				
+			}
+			
 			
 			
 		} catch (ClassNotFoundException e) {
@@ -104,7 +135,7 @@ public class TestController extends HttpServlet {
 	}
 	
 	public void forwarding(HttpServletRequest request, HttpServletResponse response, String fileName) throws ServletException, IOException {
-		String prefix = "/jsp/day5/";
+		String prefix = "/jsp/day6/";
 		String suffix = ".jsp";
 		String path = prefix + fileName + suffix;
 		
