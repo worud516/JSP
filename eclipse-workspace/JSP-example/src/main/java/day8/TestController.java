@@ -1,4 +1,4 @@
-package day7;
+package day8;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -10,11 +10,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import day7.Article;
-import day7.ArticleDao;
+import day8.Article;
+import day8.ArticleDao;
 
-@WebServlet("/article7/*")
+@WebServlet("/article8/*")
 public class TestController extends HttpServlet {
 
 	ArticleDao adao = new ArticleDao();
@@ -45,11 +46,23 @@ public class TestController extends HttpServlet {
 			if(action.equals("list")) {
 				list(request, response);
 			}
+			else if(action.equals("addForm")) {
+				forwarding(request, response, "addForm");
+			}
 			else if(action.equals("add")) {
 				add(request, response);
 			}
 			else if(action.equals("detail")) {
-				detail(request, response);
+
+				HttpSession session = request.getSession();
+
+				if(session.getAttribute("loginedUser") == null) {
+					forwarding(request, response, "needToLogin");
+				}
+				else {
+					detail(request, response);					
+				}				
+
 			}
 			else if(action.equals("showUpdate")) {
 				// 게시물 하나 같이 가져가야 함.
@@ -62,6 +75,9 @@ public class TestController extends HttpServlet {
 			else if(action.equals("delete")) {
 				delete(request, response);
 			}
+			else if(action.equals("addReply")) {
+				addReply(request, response);
+			}
 
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -72,10 +88,21 @@ public class TestController extends HttpServlet {
 		}
 	}
 
+	private void addReply(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, SQLException, IOException {
+
+		int articleId = Integer.parseInt(request.getParameter("articleId"));
+		int memberId = Integer.parseInt(request.getParameter("memberId")); 
+		String rbody =request.getParameter("rbody");
+
+		adao.insertReply(articleId, memberId, rbody);
+
+		response.sendRedirect("/JSP-example/article8/detail?articleId=" + articleId);
+	}
+
 	private void delete(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, SQLException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
 		adao.deleteArticle(id);
-		response.sendRedirect("/JSP/article7/list");
+		response.sendRedirect("/JSP-example/article8/list");
 	}
 
 	private void update(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, SQLException, IOException {
@@ -86,7 +113,7 @@ public class TestController extends HttpServlet {
 
 		adao.updateArticle(id, title, body);
 
-		response.sendRedirect("/JSP/article7/detail?articleId=" + id);
+		response.sendRedirect("/JSP-example/article8/detail?articleId=" + id);
 	}
 
 	private void showUpdate(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, SQLException, ServletException, IOException {
@@ -102,8 +129,11 @@ public class TestController extends HttpServlet {
 		String strId = request.getParameter("articleId");
 		int id = Integer.parseInt(strId);
 		Article article = adao.getArticleById(id);
+		ArrayList<Reply> replies = adao.getReplyList(id); 
 
 		request.setAttribute("article", article);
+		request.setAttribute("replies", replies);
+
 		forwarding(request, response, "detail");
 
 	}
@@ -113,7 +143,7 @@ public class TestController extends HttpServlet {
 		String body = request.getParameter("body");
 
 		adao.insertArticle(title, body);
-		forwarding(request, response, "addForm");	
+		response.sendRedirect("/JSP-example/article8/list");	
 	}
 
 	private void list(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, SQLException, ServletException, IOException {
@@ -124,7 +154,7 @@ public class TestController extends HttpServlet {
 	}
 
 	public void forwarding(HttpServletRequest request, HttpServletResponse response, String fileName) throws ServletException, IOException {
-		String prefix = "/jsp/day7/";
+		String prefix = "/jsp/day8/";
 		String suffix = ".jsp";
 		String path = prefix + fileName + suffix;
 

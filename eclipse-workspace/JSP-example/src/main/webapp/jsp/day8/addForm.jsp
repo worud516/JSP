@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-<%@ page import="day7.ArticleDao" %>
-
+<%@ page import="day8.ArticleDao" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +11,7 @@
 
 <h1>게시물 등록</h1>
 
-<form action="JSP-example/article7/add">
+<form action="JSP-example/article8/add">
 	<div>
 		<div>
 			제목<br>
@@ -26,6 +24,6 @@
 		<input type="submit"/>
 	</div>
 </form>
-<a href="http://127.0.0.1:9000/JSP-example/jsp/day7/list.jsp">목록으로</a>
+<a href="http://127.0.0.1:9000/JSP-example/jsp/day8/list.jsp">목록으로</a>
 </body>
 </html>
